@@ -7,9 +7,12 @@ import android.util.Log;
 import com.itarato.hawk.model.Content;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class PackageDownloadTask extends AsyncTask<Content, Void, Boolean> {
 
@@ -29,20 +32,38 @@ public class PackageDownloadTask extends AsyncTask<Content, Void, Boolean> {
         final String packageName = String.valueOf(content.getId()) + ".zip";
 
         try {
-            Log.i(LOG_TAG, "Attempt to create file: " + packageName);
-            FileOutputStream fileOutputStream = context.openFileOutput(packageName, Context.MODE_PRIVATE);
+            Log.i(LOG_TAG, "Attempt to extract ZIP: " + packageName);
 
             URL packageURL = new URL(content.getPackageURL());
             InputStream is = packageURL.openStream();
             BufferedInputStream bis = new BufferedInputStream(is);
-            int current;
-            byte[] data = new byte[50];
+            ZipInputStream zipInputStream = new ZipInputStream(bis);
 
-            while ((current = bis.read(data, 0, data.length)) != -1) {
-                fileOutputStream.write(data, 0, current);
+            ZipEntry ze;
+            while ((ze = zipInputStream.getNextEntry()) != null) {
+                File extractedFile = new File(context.getFilesDir().getPath(), ze.getName());
+                File parentFolder = extractedFile.getParentFile();
+
+                Log.i(LOG_TAG, parentFolder.getPath());
+                File fileFullPath = new File(parentFolder.getPath());
+                if (!fileFullPath.exists()) {
+                    boolean success = fileFullPath.mkdirs();
+                    if (!success) {
+                        Log.e(LOG_TAG, "File path cannot be created");
+                    } else {
+                        Log.i(LOG_TAG, "Folder has been created");
+                    }
+                }
+
+                FileOutputStream fos = new FileOutputStream(extractedFile);
+                int count;
+                byte[] buffer = new byte[1 << 10];
+                while ((count = zipInputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, count);
+                }
+                Log.i(LOG_TAG, ze.getName() + " has been extracted");
+                fos.close();
             }
-
-            fileOutputStream.close();
             Log.i(LOG_TAG, "Package download successful");
         } catch (Exception e) {
             Log.e(LOG_TAG, "Cannot open package file");

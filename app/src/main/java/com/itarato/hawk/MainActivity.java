@@ -7,10 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.itarato.hawk.model.Content;
 import com.itarato.hawk.task.ContentListUpdateTask;
@@ -35,18 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         assert listView != null;
         listView.setAdapter(this.contentListAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Hello" + String.valueOf(position), Toast.LENGTH_SHORT);
-                toast.show();
-
-                Intent i = new Intent("com.itarato.hawk.CONTENT");
-                i.putExtra("position", position);
-                sendBroadcast(i);
-            }
-        });
 
         BroadcastReceiver broadcastReceiver = new ContentListBroadcastReceiver(this.contentListAdapter);
 

@@ -12,4 +12,16 @@
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textColor="@android:color/holo_green_dark"/>
 
+    <Button
+        android:layout_width="100sp"
+        android:layout_height="48sp"
+        android:id="@+id/content_download_button"
+        android:text="Download"/>
+
+    <Button
+        android:layout_width="100sp"
+        android:layout_height="48sp"
+        android:id="@+id/content_view_button"
+        android:text="View"/>
+
 </LinearLayout>

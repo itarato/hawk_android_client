@@ -9,7 +9,7 @@ public class ContentLoader {
 
     public String load() {
         try {
-            URL contentURL = new URL("http://192.168.0.104/hawk_d8/hawk/content");
+            URL contentURL = new URL("http://192.168.0.101/hawk_d8/hawk/content");
             InputStream is = contentURL.openStream();
             BufferedInputStream bis = new BufferedInputStream(is);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
