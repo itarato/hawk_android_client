@@ -6,13 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.itarato.hawk.ContentViewActivity">
 
-    <TextView
-        android:text="TextView and such"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textColor="#ff0000" />
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
