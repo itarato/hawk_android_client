@@ -50,6 +50,7 @@ public class ContentListAdapter extends ArrayAdapter<Content> {
 
                 Content content = getItem(position);
                 i.putExtra("id", content.getId());
+                i.putExtra("pages", content.getPages());
                 getContext().startActivity(i);
             }
         });

@@ -46,10 +46,17 @@ public class ContentListUpdateTask extends AsyncTask<Object, Void, String> {
 
             for (int i = 0; i < contentListJSON.length(); i++) {
                 try {
+                    JSONArray pagesJSON = contentListJSON.getJSONObject(i).getJSONArray("pages");
+                    String[] pages = new String[pagesJSON.length()];
+                    for (int j = 0; j < pagesJSON.length(); j++) {
+                        pages[j] = pagesJSON.getString(j);
+                    }
+
                     Content content = new Content(
                             contentListJSON.getJSONObject(i).getInt("id"),
                             contentListJSON.getJSONObject(i).getString("title"),
-                            contentListJSON.getJSONObject(i).getString("package")
+                            contentListJSON.getJSONObject(i).getString("package"),
+                            pages
                     );
                     contentListAdapter.add(content);
                 } catch (Exception e) {

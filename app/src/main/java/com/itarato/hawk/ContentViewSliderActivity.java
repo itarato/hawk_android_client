@@ -17,25 +17,29 @@ public class ContentViewSliderActivity extends FragmentActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.content_slider);
 
-        FragmentStatePagerAdapter fragmentStatePagerAdapter = new ContentViewSliderAdapter(getSupportFragmentManager());
+        FragmentStatePagerAdapter fragmentStatePagerAdapter = new ContentViewSliderAdapter(getSupportFragmentManager(), this.getIntent().getStringArrayExtra("pages"));
         viewPager.setAdapter(fragmentStatePagerAdapter);
     }
 
     private static class ContentViewSliderAdapter extends FragmentStatePagerAdapter {
 
-        public ContentViewSliderAdapter(FragmentManager fm) {
+        private final String[] pages;
+
+        public ContentViewSliderAdapter(FragmentManager fm, String[] pages) {
             super(fm);
+            this.pages = pages;
         }
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new ContentViewFragment();
+            ContentViewFragment fragment = new ContentViewFragment();
+            fragment.setPage(this.pages[position]);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return pages.length;
         }
 
     }
