@@ -45,7 +45,7 @@ public class ContentListAdapter extends ArrayAdapter<Content> {
                 Toast toast = Toast.makeText(v.getContext(), "view", Toast.LENGTH_SHORT);
                 toast.show();
 
-                Intent i = new Intent(getContext(), ContentViewActivity.class);
+                Intent i = new Intent(getContext(), ContentViewSliderActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 Content content = getItem(position);
