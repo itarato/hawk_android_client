@@ -2,15 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:key="remote_url"
-        android:title="Remote URL"
-        android:summary="Remote URL to the Hawk service"
-        android:defaultValue="http://"/>
-
-    <CheckBoxPreference
-        android:key="debug_mode"
-        android:title="Debug mode"
-        android:summary="Enable development features"
-        android:defaultValue="true"/>
+        android:key="hawk_service_feed_url"
+        android:title="Feed URL"
+        android:summary="Full path to the content feed."
+        android:defaultValue="http://192.168.0.100/hawk_d8/hawk/content"/>
 
 </PreferenceScreen>

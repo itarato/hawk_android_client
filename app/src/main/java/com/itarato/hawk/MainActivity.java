@@ -3,13 +3,16 @@ package com.itarato.hawk;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.itarato.hawk.model.Content;
+import com.itarato.hawk.config.AppConfig;
+import com.itarato.hawk.model.ContentListFeedItem;
 import com.itarato.hawk.task.ContentListUpdateTask;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Content> contentList = new ArrayList<>();
+        ArrayList<ContentListFeedItem> contentList = new ArrayList<>();
 
         this.contentListAdapter = new ContentListAdapter(this.getApplicationContext(), R.layout.content_list_item, contentList);
         ListView listView = (ListView) this.findViewById(R.id.content_list);
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         BroadcastReceiver broadcastReceiver = new ContentListBroadcastReceiver(this.contentListAdapter);
 
-        IntentFilter intentFilter = new IntentFilter("com.itarato.hawk.CONTENT");
+        IntentFilter intentFilter = new IntentFilter(AppConfig.INTENT_CONTENT);
         this.registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -49,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refresh:
-                new ContentListUpdateTask(this.contentListAdapter).execute();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                String feedURL = prefs.getString(AppConfig.CONFIG_FEED_URL, null);
+                new ContentListUpdateTask(this.contentListAdapter).execute(feedURL);
                 return true;
 
             case R.id.settings:

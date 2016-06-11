@@ -1,17 +1,17 @@
 package com.itarato.hawk.model;
 
-public class Content {
+public class ContentListFeedItem {
 
     private final int id;
     private final String title;
     private final String packageURL;
-    private final String[] pages;
+    private final String imageURL;
 
-    public Content(int id, String title, String packageURL, String[] pages) {
+    public ContentListFeedItem(int id, String title, String packageURL, String imageURL) {
         this.id = id;
         this.title = title;
-        this.pages = pages;
         this.packageURL = packageURL;
+        this.imageURL = imageURL;
     }
 
     public String getTitle() {
@@ -26,8 +26,8 @@ public class Content {
         return id;
     }
 
-    public String[] getPages() {
-        return pages;
+    public String getImageURL() {
+        return imageURL;
     }
 
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.itarato.hawk.model.Content;
+import com.itarato.hawk.model.ContentListFeedItem;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class PackageDownloadTask extends AsyncTask<Content, Void, Boolean> {
+public class PackageDownloadTask extends AsyncTask<ContentListFeedItem, Void, Boolean> {
 
     private static final String LOG_TAG = PackageDownloadTask.class.getSimpleName();
     private final Context context;
@@ -25,10 +25,10 @@ public class PackageDownloadTask extends AsyncTask<Content, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Content... params) {
+    protected Boolean doInBackground(ContentListFeedItem... params) {
         Log.i(LOG_TAG, "Package download has been initiated");
 
-        Content content = params[0];
+        ContentListFeedItem content = params[0];
         final String packageName = String.valueOf(content.getId()) + ".zip";
 
         try {

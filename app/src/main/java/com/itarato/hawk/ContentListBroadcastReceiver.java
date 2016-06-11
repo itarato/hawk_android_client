@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.itarato.hawk.model.Content;
+import com.itarato.hawk.model.ContentListFeedItem;
 import com.itarato.hawk.task.PackageDownloadTask;
 
 public class ContentListBroadcastReceiver extends BroadcastReceiver {
@@ -22,7 +22,7 @@ public class ContentListBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i(LOG_TAG, "Message received.");
         int pos = intent.getIntExtra("position", -1);
-        Content content = this.contentListAdapter.getItem(pos);
+        ContentListFeedItem content = this.contentListAdapter.getItem(pos);
         Log.i(LOG_TAG, content.getPackageURL());
 
         new PackageDownloadTask(context).execute(content);

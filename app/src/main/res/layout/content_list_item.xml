@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48sp"
-    android:weightSum="1">
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:dividerPadding="32dp">
+
+    <ImageView
+        android:src="@drawable/cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_weight="0.22"
+        android:contentDescription="@string/cover_image"/>
 
     <TextView
-        android:layout_width="100sp"
-        android:layout_height="48sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/content_title"
         android:layout_weight="0.22"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:textColor="@android:color/holo_green_dark"/>
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:lineSpacingExtra="24sp"
+        android:textColor="@color/colorPrimary" />
 
-    <Button
-        android:layout_width="100sp"
-        android:layout_height="48sp"
-        android:id="@+id/content_download_button"
-        android:text="Download"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.22">
 
-    <Button
-        android:layout_width="100sp"
-        android:layout_height="48sp"
-        android:id="@+id/content_view_button"
-        android:text="View"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_download_button"
+            android:text="@string/button_download"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_view_button"
+            android:text="@string/button_view"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>

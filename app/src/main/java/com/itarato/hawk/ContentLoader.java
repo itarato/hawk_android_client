@@ -7,9 +7,15 @@ import java.net.URL;
 
 public class ContentLoader {
 
+    private final String feedURL;
+
+    public ContentLoader(String feedURL) {
+        this.feedURL = feedURL;
+    }
+
     public String load() {
         try {
-            URL contentURL = new URL("http://192.168.0.103/hawk_d8/hawk/content");
+            URL contentURL = new URL(this.feedURL);
             InputStream is = contentURL.openStream();
             BufferedInputStream bis = new BufferedInputStream(is);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -20,10 +26,10 @@ public class ContentLoader {
                 byteArrayOutputStream.write(data, 0, current);
             }
 
-            System.out.println("URL operation done");
+            System.out.println("feedURL operation done");
             return byteArrayOutputStream.toString();
         } catch (Exception e) {
-            System.out.println("URL related exception.");
+            System.out.println("feedURL related exception.");
             e.printStackTrace();
         }
 

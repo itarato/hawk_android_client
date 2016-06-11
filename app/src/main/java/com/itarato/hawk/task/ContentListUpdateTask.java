@@ -4,12 +4,12 @@ import android.os.AsyncTask;
 
 import com.itarato.hawk.ContentListAdapter;
 import com.itarato.hawk.ContentLoader;
-import com.itarato.hawk.model.Content;
+import com.itarato.hawk.model.ContentListFeedItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ContentListUpdateTask extends AsyncTask<Object, Void, String> {
+public class ContentListUpdateTask extends AsyncTask<String, Void, String> {
 
     private ContentListAdapter contentListAdapter;
 
@@ -19,8 +19,9 @@ public class ContentListUpdateTask extends AsyncTask<Object, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Object... params) {
-        ContentLoader loader = new ContentLoader();
+    protected String doInBackground(String... params) {
+        String URL = params[0];
+        ContentLoader loader = new ContentLoader(URL);
 
         try {
             String contentFeedRaw = loader.load();
@@ -46,17 +47,12 @@ public class ContentListUpdateTask extends AsyncTask<Object, Void, String> {
 
             for (int i = 0; i < contentListJSON.length(); i++) {
                 try {
-                    JSONArray pagesJSON = contentListJSON.getJSONObject(i).getJSONArray("pages");
-                    String[] pages = new String[pagesJSON.length()];
-                    for (int j = 0; j < pagesJSON.length(); j++) {
-                        pages[j] = pagesJSON.getString(j);
-                    }
-
-                    Content content = new Content(
-                            contentListJSON.getJSONObject(i).getInt("id"),
-                            contentListJSON.getJSONObject(i).getString("title"),
-                            contentListJSON.getJSONObject(i).getString("package"),
-                            pages
+                    JSONObject contentItemJSON = contentListJSON.getJSONObject(i);
+                    ContentListFeedItem content = new ContentListFeedItem(
+                            contentItemJSON.getInt("id"),
+                            contentItemJSON.getString("title"),
+                            contentItemJSON.getString("package"),
+                            contentItemJSON.getString("image")
                     );
                     contentListAdapter.add(content);
                 } catch (Exception e) {
