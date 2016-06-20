@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         IntentFilter intentFilter = new IntentFilter(AppConfig.INTENT_CONTENT);
         this.registerReceiver(broadcastReceiver, intentFilter);
+
+        refreshContentFeed();
     }
 
     @Override
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refresh:
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                String feedURL = prefs.getString(AppConfig.CONFIG_FEED_URL, null);
-                new ContentListUpdateTask(this.contentListAdapter).execute(feedURL);
+                refreshContentFeed();
                 return true;
 
             case R.id.settings:
@@ -64,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void refreshContentFeed() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String feedURL = prefs.getString(AppConfig.CONFIG_FEED_URL, null);
+        new ContentListUpdateTask(this.contentListAdapter).execute(feedURL);
     }
 
 }

@@ -20,8 +20,6 @@ import java.io.FileInputStream;
 
 public class ContentViewSliderActivity extends FragmentActivity {
 
-    ContentManifest manifest = null;
-
     private static final String LOG_TAG = ContentViewSliderActivity.class.getSimpleName();
 
     @Override
@@ -30,8 +28,9 @@ public class ContentViewSliderActivity extends FragmentActivity {
         setContentView(R.layout.content_view_slider);
 
         int id = getIntent().getIntExtra("id", 0);
+        ContentManifest manifest;
         try {
-            this.manifest = ContentManifest.fromJson(FileUtil.JSONObjectFromFilePath(getApplicationContext().getFilesDir().getPath() + "/" + String.valueOf(id) + "/manifest.json"));
+            manifest = ContentManifest.fromJson(FileUtil.JSONObjectFromFilePath(getApplicationContext().getFilesDir().getPath() + "/" + String.valueOf(id) + "/manifest.json"));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Content manifest cannot be open.");
             return;
@@ -39,7 +38,7 @@ public class ContentViewSliderActivity extends FragmentActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.content_slider);
 
-        FragmentStatePagerAdapter fragmentStatePagerAdapter = new ContentViewSliderAdapter(getSupportFragmentManager(), this.manifest.getPages());
+        FragmentStatePagerAdapter fragmentStatePagerAdapter = new ContentViewSliderAdapter(getSupportFragmentManager(), manifest.getPages());
         viewPager.setAdapter(fragmentStatePagerAdapter);
     }
 
