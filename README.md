@@ -10,9 +10,7 @@ Adding the client AAR to your project
 -------------------------------------
 
 1. Copy the aar file into your project's lib folder
-
 2. Add this entry to your app gradle file:
-
 ```gradle
 allprojects {
     repositories {
@@ -23,9 +21,7 @@ allprojects {
     }
 }
 ```
-
 3. Add this entry to your app gradle file dependencies section:
-
 ```gradle
 compile(name:'hawkandroidclient-debug', ext:'aar')
 ```
